@@ -103,7 +103,7 @@ export default function Goals() {
             </span>
             <h1 className={"text-4xl font-bold relative underline"}>GOAL</h1>
         </div>
-        <ul className={"flex flex-col list min-w-100"}>
+        <ul className={"flex flex-col list sm:min-w-100"}>
             <Mappe/>
         </ul>
     </div>
