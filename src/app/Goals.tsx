@@ -72,14 +72,14 @@ export default function Goals() {
                             {name}
                         </div>
                     </h1>
-                    <p onClick={() => { onChangeWorkoutValue(i) }} className={"select-none"}>
+                    <p className={"select-none"}>
                         [{x.done} / {x.required}{system}]
                     </p>
                     <input
                         type={"checkbox"}
                         checked={x.done === x.required}
                         readOnly={true}
-                        className={"checkbox checkbox-neutral rounded-field cursor-default shrink"}
+                        className={"checkbox checkbox-neutral rounded-field shrink"}
                         onClick={() => {
                             checkboxOnClick(x.done === x.required, i)
                         }}
