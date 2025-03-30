@@ -1,7 +1,7 @@
 "use client"; // client component, can run functions
 
 import {useState} from "react"
-import favicon from "./favicon.ico"
+import favicon from "../favicon.ico"
 import Image from "next/image";
 
 export default function Home() {
