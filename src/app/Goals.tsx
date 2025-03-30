@@ -8,8 +8,23 @@ import random from "random"
 export default function Goals() {
     const [challenges, setChallenges] = useLocalStorage<ChallengeList>("challenges", []);
 
+    const [yesterdate, setYesterdate] = useLocalStorage<string>("yesterdate", "");
+
     useEffect(() => {
         let arr = [...challenges];
+
+        const now: Date = new Date();
+        if (yesterdate === "") {
+            setYesterdate(now.toDateString())
+
+        } else if (yesterdate !== now.toDateString()) {
+            setYesterdate(now.toDateString())
+
+            arr = []
+        }
+
+
+
         if (!arr) {
             arr = []
         }
@@ -30,12 +45,12 @@ export default function Goals() {
         return random.choice(random.shuffle(allChallenges)) as Challenge;
     }
 
-    function onChangeWorkoutValue(index: number) {
+    function onChangeWorkoutValue(index: number, interval = 1) {
         const newChallenges = [...challenges];
 
         let value = newChallenges[index].done
 
-        value++
+        value += interval
 
         if (value > newChallenges[index].required) {
             value = newChallenges[index].required;
@@ -46,16 +61,19 @@ export default function Goals() {
         setChallenges(newChallenges);
     }
 
-    function checkboxOnClick(checked: boolean, i: number) {
+    function checkboxOnClick(checked: boolean, i: number, interval: number = 1) {
         if (!checked) {
-            onChangeWorkoutValue(i)
+            onChangeWorkoutValue(i, interval)
             return
         }
 
+        return
+        /*
         const newChallenges = [...challenges];
 
         newChallenges[i] = mkChallenge()
         setChallenges(newChallenges);
+        */
     }
 
     const Mappe = () => {
@@ -70,7 +88,12 @@ export default function Goals() {
                 <li className={"flex flex-row gap-10 list-row"} key={i}>
                     <div className={"grow"}>
                         <span className={"absolute blur-sm text-primary"}>{name}</span>
-                        <h1 className={"font-bold relative"}>
+                        <h1
+                            className={"font-bold relative"}
+                            onClick={() => {
+                                checkboxOnClick(x.done === x.required, i, x.required - x.done)
+                            }}
+                        >
                             <div className="tooltip" data-tip={description}>
                                 {name}
                             </div>
@@ -86,9 +109,9 @@ export default function Goals() {
                         type={"checkbox"}
                         checked={x.done === x.required}
                         readOnly={true}
-                        className={"checkbox checkbox-neutral rounded-field shrink"}
+                        className={"relative checkbox checkbox-neutral rounded-field bg-white"}
                         onClick={() => {
-                            checkboxOnClick(x.done === x.required, i)
+                            checkboxOnClick(x.done === x.required, i, 1)
                         }}
                     />
                 </li>
