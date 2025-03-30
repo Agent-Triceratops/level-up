@@ -96,7 +96,7 @@ export default function Goals() {
         });
     };
 
-    return <>
+    return <div className={"flex flex-col gap-7 items-center justify-center"}>
         <div>
             <span className={"text-4xl font-bold absolute blur-sm text-primary underline"}>
                 GOAL
@@ -106,5 +106,5 @@ export default function Goals() {
         <ul className={"flex flex-col list"}>
             <Mappe/>
         </ul>
-    </>
+    </div>
 }
