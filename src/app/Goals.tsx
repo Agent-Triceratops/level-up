@@ -23,6 +23,7 @@ export default function Goals() {
         }
 
         setChallenges(arr);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function mkChallenge() {
@@ -67,14 +68,20 @@ export default function Goals() {
             
             return (
                 <li className={"flex flex-row gap-10 list-row"} key={i}>
-                    <h1 className={"font-bold grow"}>
-                        <div className="tooltip" data-tip={description}>
-                            {name}
-                        </div>
-                    </h1>
-                    <p className={"select-none"}>
-                        [{x.done} / {x.required}{system}]
-                    </p>
+                    <div className={"grow"}>
+                        <span className={"absolute blur-sm text-primary"}>{name}</span>
+                        <h1 className={"font-bold relative"}>
+                            <div className="tooltip" data-tip={description}>
+                                {name}
+                            </div>
+                        </h1>
+                    </div>
+                    <div>
+                        <span className={"absolute blur-sm text-primary"}>[{x.done} / {x.required}{system}]</span>
+                        <p className={"font-bold relative"}>
+                            [{x.done} / {x.required}{system}]
+                        </p>
+                    </div>
                     <input
                         type={"checkbox"}
                         checked={x.done === x.required}
@@ -90,7 +97,12 @@ export default function Goals() {
     };
 
     return <>
-        <h1 className={"text-4xl font-bold underline"}>GOAL</h1>
+        <div>
+            <span className={"text-4xl font-bold absolute blur-sm text-primary underline"}>
+                GOAL
+            </span>
+            <h1 className={"text-4xl font-bold relative underline"}>GOAL</h1>
+        </div>
         <ul className={"flex flex-col list"}>
             <Mappe/>
         </ul>
